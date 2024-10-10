@@ -30,7 +30,7 @@ sap.ui.define([
             onReadform: function () {
                 var that = this;
                 var oModel = this.getOwnerComponent().getModel();  
-                var oFilter = new sap.ui.model.Filter('ID', 'EQ', '2c6444b4-af03-4a61-8a27-37af63ed9a03');  
+                var oFilter = new sap.ui.model.Filter('ID', 'EQ', 'c362ec46-8c85-4f2d-9bf2-ca1376945e61');  
                 // Read the OData service and fetch data
                 oModel.read("/supplierReqSrv", {
                     filters: [oFilter],
@@ -156,7 +156,7 @@ sap.ui.define([
             onReadAttachments: function() {
                 var that = this;
                 var oModel = this.getOwnerComponent().getModel();
-                var oFilter = new sap.ui.model.Filter('Req_Supplier_ID', 'EQ', '2c6444b4-af03-4a61-8a27-37af63ed9a03');
+                var oFilter = new sap.ui.model.Filter('Req_Supplier_ID', 'EQ', 'c362ec46-8c85-4f2d-9bf2-ca1376945e61');
                
                 oModel.read("/SReqattachmentsSrv", {
                     filters: [oFilter],
@@ -257,7 +257,7 @@ sap.ui.define([
            
                 if (oFile && oFile.__metadata && oFile.__metadata.media_src) {
                     // Fetch the file content from the media_src URL
-                    //var sUrl = oFile.__metadata.media_src;
+                    var sUrl = oFile.__metadata.media_src;
            
                     fetch(sUrl)
                         .then(response => {

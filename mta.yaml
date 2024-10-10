@@ -50,6 +50,36 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: digitech-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: digitech-destination-service
+    parameters:
+      content-target: true
+  - name: digitech-repo-host
+    parameters:
+      service-key:
+        name: digitech-repo-host-key
+  - name: digitech-auth
+    parameters:
+      service-key:
+        name: digitech-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: com_approute_digitech_repo_host
+          ServiceInstanceName: digitech-html5-srv
+          ServiceKeyName: digitech-repo-host-key
+          sap.cloud.service: com.approute
+        - Authentication: OAuth2UserTokenExchange
+          Name: com_approute_digitech_auth
+          ServiceInstanceName: digitech-auth
+          ServiceKeyName: digitech-auth-key
+          sap.cloud.service: com.approute
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
 resources:
 - name: digitech-db
   type: com.sap.xs.hdi-container
@@ -75,16 +105,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
+      HTML5Runtime_enabled: true
       version: 1.0.0
     service: destination
     service-name: digitech-destination-service
