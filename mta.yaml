@@ -40,6 +40,10 @@ modules:
       - comdigitechdigitechproject.zip
       name: comdigitechdigitechproject
       target-path: resources/
+    - artifacts:
+      - comprocesstaskworkflowuimodule.zip
+      name: comprocesstaskworkflowuimodule
+      target-path: resources/
 - name: comdigitechdigitechproject
   type: html5
   path: app/digitechproject
@@ -66,7 +70,7 @@ modules:
         name: digitech-auth-key
   parameters:
     content:
-      instance:
+      subaccount:
         destinations:
         - Name: com_approute_digitech_repo_host
           ServiceInstanceName: digitech-html5-srv
@@ -80,6 +84,16 @@ modules:
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
+- name: comprocesstaskworkflowuimodule
+  type: html5
+  path: workflow-ui-module
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: digitech-db
   type: com.sap.xs.hdi-container
@@ -106,6 +120,15 @@ resources:
   parameters:
     config:
       HTML5Runtime_enabled: true
+      init_data:
+        subaccount:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: digitech-destination-service

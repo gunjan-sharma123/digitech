@@ -11,7 +11,7 @@ module.exports = async function () {
     // request atttachments
     this.before('CREATE', supplierReqSrv, BeforeSupReqFun);
     this.before('CREATE', SavingsupplierReqSrv, BeforeSavingSupReqFun);
-    // this.after('CREATE', supplierReqSrv, AfterSupReqFun);
+    this.after('CREATE', supplierReqSrv, AfterSupReqFun);
 
 
      // functions-------------------------------------------->
@@ -86,46 +86,46 @@ module.exports = async function () {
     }
 
     //After supplier Req Fun We are triggering the workflow
-    // async function AfterSupReqFun(req, res) {
+    async function AfterSupReqFun(req, res) {
 
-    //     const {
+        const {
 
-    //         SFullName,
+            SFullName,
 
-    //     } = res.data;
-    //     let ReqID = res.id;
-    //     console.log(ReqID);
+        } = res.data;
+        let ReqID = res.id;
+        console.log(ReqID);
 
-    //     try {
+        try {
 
 
-    //         const apprwf = await cds.connect.to("spa_process_destination");
+            const apprwf = await cds.connect.to("spa_process_destination");
 
-    //         let workflowData = JSON.stringify({
-    //             "definitionId": "us10.fd8df7c4trial.vihaanworkflow.approvalProcess",
-    //             "context": {
-    //                 "reqid": ReqID,
-    //                 "approveremail": "sumitracxam@gmail.com",
-    //                 "sfullname": SFullName
+            let workflowData = JSON.stringify({
+                "definitionId": "us10.fd8df7c4trial.vihaanworkflow.approvalProcess",
+                "context": {
+                    "reqid": ReqID,
+                    "approveremail": "sumitracxam@gmail.com",
+                    "sfullname": SFullName
 
-    //             }
-    //         });
-    //         console.log(workflowData);
+                }
+            });
+            console.log(workflowData);
 
-    //         const wfResponse = await apprwf.post('/workflow-instances', workflowData, {
-    //             headers: {
+            const wfResponse = await apprwf.post('/workflow-instances', workflowData, {
+                headers: {
 
-    //                 'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
 
-    //             }
-    //         });
+                }
+            });
 
-    //         console.log('Workflow Triggered', wfResponse);
-    //     } catch (error) {
-    //         console.error('Workflow Trigger Error:', error);
-    //         throw error;
-    //     }
-    // }
+            console.log('Workflow Triggered', wfResponse);
+        } catch (error) {
+            console.error('Workflow Trigger Error:', error);
+            throw error;
+        }
+    }
 
     //On Attachment Upload...
     async function OnAttachmentsUpload(req, res) {
