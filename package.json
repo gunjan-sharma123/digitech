@@ -35,16 +35,7 @@
         },
         "requires": {
             "db": "hana",
-            "auth": "mocked",
-            "spa_process_destination": {
-                "kind": "rest",
-                "csrf": true,
-                "csrfInBatch": true,
-                "credentials": {
-                    "destination": "spa_process_destination",
-                    "path": "/workflow/rest/v1"
-                }
-            }
+            "auth": "mocked"
         }
     }
 }
