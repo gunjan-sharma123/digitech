@@ -140,12 +140,12 @@
             "type": "object",
             "required": [],
             "properties": {
-                "reqid": {
+                "reqId": {
                     "type": "string",
                     "title": "Request ID",
                     "description": "Unique identifier for the request"
                 },
-                "sfullname":{
+                "fullname":{
                     "type": "string",
                     "title": "Supplier FullName",
                     "description": "Supplier Full Name"

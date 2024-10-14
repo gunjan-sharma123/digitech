@@ -116,8 +116,8 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "form3",
-          "viewName": "form3"
+          "viewId": "SupplierTable",
+          "viewName": "SupplierTable"
         }
       }
     },
@@ -127,5 +127,10 @@
       "async": true,
       "id": "App"
     }
+    
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "supplier_creation"
   }
 }

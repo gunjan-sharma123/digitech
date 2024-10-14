@@ -8,6 +8,8 @@
     "dependencies": {
         "@cap-js-community/odata-v2-adapter": "^1.13.4",
         "@cap-js/hana": "^1",
+        "@sap-cloud-sdk/http-client": "^3.22.2",
+        "@sap-cloud-sdk/resilience": "^3.22.2",
         "@sap/cds": "^8",
         "@sap/xssec": "^4",
         "express": "^4.21.0",
@@ -33,7 +35,16 @@
         },
         "requires": {
             "db": "hana",
-            "auth": "mocked"
+            "auth": "mocked",
+            "spa_process_destination": {
+                "kind": "rest",
+                "csrf": true,
+                "csrfInBatch": true,
+                "credentials": {
+                    "destination": "spa_process_destination",
+                    "path": "/workflow/rest/v1"
+                }
+            }
         }
     }
 }

@@ -64,13 +64,9 @@ module.exports = async function () {
         const missingFields = Object.keys(mandatoryFields).filter(field => !mandatoryFields[field] || mandatoryFields[field].length === 0);
         if (missingFields.length) {
             req.error(400, `Following field must be provided :${missingFields.join(', ')}`);
-
         }
         //function call
         await ValCheck(DigressionVendorCodeVal, GSTIN, PANCardNo, req);
-
-
-
     };
 
     //2. Before supplier saving form
@@ -80,46 +76,32 @@ module.exports = async function () {
             PANCardNo,
             GSTIN,
         } = req.data;
-
         await ValCheck(DigressionVendorCodeVal, GSTIN, PANCardNo, req);
-
     }
 
     //After supplier Req Fun We are triggering the workflow
     async function AfterSupReqFun(req, res) {
-
         const {
-
-            SFullName,
-
+            fullName,
         } = res.data;
-        let ReqID = res.id;
-        console.log(ReqID);
-
+        let reqId = res.id;
+        console.log(reqId);
         try {
-
-
             const apprwf = await cds.connect.to("spa_process_destination");
-
             let workflowData = JSON.stringify({
                 "definitionId": "us10.fd8df7c4trial.vihaanworkflow.approvalProcess",
                 "context": {
-                    "reqid": ReqID,
-                    "approveremail": "sumitracxam@gmail.com",
-                    "sfullname": SFullName
-
+                    "reqId": reqId,
+                    "approveremail": "gunjan.designer25@gmail.com",
+                    "fullname": fullName
                 }
             });
             console.log(workflowData);
-
             const wfResponse = await apprwf.post('/workflow-instances', workflowData, {
                 headers: {
-
                     'Content-Type': 'application/json'
-
                 }
             });
-
             console.log('Workflow Triggered', wfResponse);
         } catch (error) {
             console.error('Workflow Trigger Error:', error);
@@ -135,22 +117,16 @@ module.exports = async function () {
             rest.content = binaryContent;
         }
         await INSERT.into(SReqattachmentsSrv).entries(rest);
-
         return req.data;
-
     }
 
     //Before Attachment Upload
     async function BeforeAttachmentUpload(req, res) {
-
         if (req.data.content && req.data.content.length > 0) {
             console.log("Uploading file of size:", req.data.content.length);
         }
         req.data.url = `/odata/v2/attachments/SReqattachmentsSrv(${req.data.ID})/content`;
-
     }
-
-
 };
 
 
